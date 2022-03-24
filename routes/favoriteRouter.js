@@ -1,10 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const authenticate = require('../authenticate');
+var mongoose = require('mongoose');
+var authenticate = require('../authenticate');
 const cors = require('./cors');
 
-const Favorites = require('../models/favorite');
+var Favorites = require('../models/favorite');
 
 const favoriteRouter = express.Router();
 
@@ -30,7 +30,7 @@ favoriteRouter.route('/')
         if (!favorite) {
             Favorites.create({ user: req.user._id })
             .then((favorite) => {
-                for (i = 0; i < req.body.length; i++ )
+                for (i = 0; i < req.body.length; i++)
                     if (favorite.dishes.indexOf(req.body[i]._id))
                         favorite.dishes.push(req.body[i]);
                 favorite.save()
@@ -49,7 +49,7 @@ favoriteRouter.route('/')
             })
         }
         else {
-            for (i = 0; i < rea.body.length; i++)
+            for (i = 0; i < req.body.length; i++)
                 if (favorite.dishes.indexOf(rea.body[i]._id) < 0 )
                     favorite.dishes.push(req.body[i]);
             favorite.save()
